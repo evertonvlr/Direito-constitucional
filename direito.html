@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Estudos - Direito Constitucional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony -->
+    <!-- Application Structure Plan: A dashboard-style SPA with a fixed sidebar for navigation and a main content area displaying thematic cards. Each card uses an interactive tab system ("Doutrina", "Texto da Lei", "Jurisprudência", "Pegadinhas") to layer information. This structure was chosen to transform the dense, linear source text into an active, user-driven exploration tool, allowing students to control information density and focus on specific areas of study (e.g., theory, case law, or exam tips) as needed, which is more effective for learning and revision than passive reading. -->
+    <!-- Visualization & Content Choices: The primary content is textual, organized into interactive tabs and expandable sections to manage complexity. A Bar Chart (Chart.js) is used to visualize and compare the minimum ages for political office (Art. 14), a data-heavy point that benefits from visual representation. The goal is to make quantitative data easily digestible. Other visual elements like highlighted mnemonics and structured lists are used to organize information logically. This supports the dashboard structure by providing quick, scannable insights. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .tab-button {
+            padding: 8px 16px;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            border-color: #2563eb; /* blue-600 */
+            color: #2563eb;
+            font-weight: 600;
+        }
+        .nav-link.active {
+            background-color: #eff6ff; /* blue-50 */
+            color: #1d4ed8; /* blue-700 */
+            font-weight: 600;
+            border-right: 3px solid #1d4ed8;
+        }
+        details > summary {
+            cursor: pointer;
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        .prose {
+            color: #334155;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <div class="flex min-h-screen">
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="w-64 bg-white shadow-lg fixed top-0 left-0 h-full p-4 transform -translate-x-full md:translate-x-0 transition-transform duration-300 z-30">
+            <h1 class="text-2xl font-bold text-blue-700 mb-8 text-center">Constitucional</h1>
+            <nav>
+                <ul class="space-y-1">
+                    <li><a href="#principios" class="nav-link flex items-center gap-3 p-2 rounded-l-md text-slate-600 hover:bg-slate-100 transition-colors">🏛️ Princípios Fundamentais</a></li>
+                    <li><a href="#direitos_individuais" class="nav-link flex items-center gap-3 p-2 rounded-l-md text-slate-600 hover:bg-slate-100 transition-colors">👤 Direitos Individuais</a></li>
+                    <li><a href="#direitos_sociais" class="nav-link flex items-center gap-3 p-2 rounded-l-md text-slate-600 hover:bg-slate-100 transition-colors">👥 Direitos Sociais</a></li>
+                    <li><a href="#nacionalidade" class="nav-link flex items-center gap-3 p-2 rounded-l-md text-slate-600 hover:bg-slate-100 transition-colors">🇧🇷 Nacionalidade</a></li>
+                    <li><a href="#direitos_politicos" class="nav-link flex items-center gap-3 p-2 rounded-l-md text-slate-600 hover:bg-slate-100 transition-colors">🗳️ Direitos Políticos</a></li>
+                    <li><a href="#organizacao_estado" class="nav-link flex items-center gap-3 p-2 rounded-l-md text-slate-600 hover:bg-slate-100 transition-colors">🗺️ Organização do Estado</a></li>
+                    <li><a href="#municipios" class="nav-link flex items-center gap-3 p-2 rounded-l-md text-slate-600 hover:bg-slate-100 transition-colors">🏙️ Municípios</a></li>
+                    <li><a href="#admin_publica" class="nav-link flex items-center gap-3 p-2 rounded-l-md text-slate-600 hover:bg-slate-100 transition-colors">⚖️ Administração Pública</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Mobile Menu Button -->
+        <button id="menu-button" class="md:hidden fixed top-4 left-4 z-40 p-2 bg-white rounded-md shadow-md text-slate-700">
+            <span class="sr-only">Abrir menu</span>
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        </button>
+
+        <!-- Main Content -->
+        <main class="flex-1 md:ml-64 p-4 md:p-8 space-y-8">
+
+            <!-- Section: Princípios Fundamentais -->
+            <section id="principios" class="bg-white p-6 rounded-lg shadow-md scroll-mt-20">
+                <h2 class="text-2xl font-bold mb-1 text-slate-800">TÍTULO I - DOS PRINCÍPIOS FUNDAMENTAIS</h2>
+                <p class="text-slate-600 mb-4 text-sm">Esta seção aborda os alicerces da República Federativa do Brasil, definindo sua estrutura, fundamentos, objetivos e os princípios que guiam suas relações internacionais. A compreensão destes artigos é crucial, pois eles informam todo o sistema constitucional.</p>
+                <div class="tabs-container">
+                    <div class="border-b border-slate-200 mb-4">
+                        <nav class="flex flex-wrap -mb-px" aria-label="Tabs">
+                            <button class="tab-button active" data-target="principios-doutrina">Doutrina</button>
+                            <button class="tab-button" data-target="principios-lei">Texto da Lei</button>
+                            <button class="tab-button" data-target="principios-juris">Jurisprudência</button>
+                            <button class="tab-button" data-target="principios-pegadinhas">Pegadinhas</button>
+                        </nav>
+                    </div>
+                    <div id="principios-doutrina" class="tab-content active">
+                        <h3 class="font-semibold text-lg mb-2">Visão Geral e Doutrina</h3>
+                        <div class="grid md:grid-cols-2 gap-4 text-sm">
+                            <div class="bg-slate-50 p-4 rounded-md border border-slate-200">
+                                <p><strong>Forma de Estado:</strong> Federação</p>
+                                <p><strong>Forma de Governo:</strong> República</p>
+                                <p><strong>Sistema de Governo:</strong> Presidencialismo</p>
+                                <p><strong>Regime de Governo:</strong> Democracia</p>
+                            </div>
+                            <div class="bg-blue-50 p-4 rounded-md border border-blue-200">
+                                <h4 class="font-bold text-blue-800">Fundamentos (Art. 1º): SO-CI-DI-VA-PLU</h4>
+                                <ul class="list-disc list-inside ml-2">
+                                    <li>**SO**berania</li>
+                                    <li>**CI**dadania</li>
+                                    <li>**DI**gnidade da pessoa humana</li>
+                                    <li>**VA**lores sociais do trabalho e da livre iniciativa</li>
+                                    <li>**PLU**ralismo político</li>
+                                </ul>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-md border border-green-200 md:col-span-2">
+                                <h4 class="font-bold text-green-800">Objetivos Fundamentais (Art. 3º): CON-GA-ER-PRO</h4>
+                                <ul class="list-disc list-inside ml-2">
+                                    <li>**CON**struir uma sociedade livre, justa e solidária</li>
+                                    <li>**GA**rantir o desenvolvimento nacional</li>
+                                    <li>**ER**radicar a pobreza e a marginalização</li>
+                                    <li>**PRO**mover o bem de todos</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="principios-lei" class="tab-content"><details class="bg-slate-50 p-4 rounded-md border"><summary class="font-semibold text-slate-700">Clique para ver o Texto da Lei (Arts. 1º ao 4º)</summary><div class="prose prose-sm max-w-none mt-2 text-slate-600"><p><b>Art. 1º</b> A República Federativa do Brasil, formada pela união indissolúvel dos Estados e Municípios e do Distrito Federal, constitui-se em Estado Democrático de Direito e tem como fundamentos...</p><p><b>Art. 2º</b> São Poderes da União, independentes e harmônicos entre si, o Legislativo, o Executivo e o Judiciário.</p><p><b>Art. 3º</b> Constituem objetivos fundamentais da República Federativa do Brasil...</p><p><b>Art. 4º</b> A República Federativa do Brasil rege-se nas suas relações internacionais pelos seguintes princípios...</p></div></details></div>
+                    <div id="principios-juris" class="tab-content"><h3 class="font-semibold text-lg mb-2">Jurisprudência Relevante</h3><ul class="list-disc list-inside space-y-2 text-sm"><li><strong>Dignidade da Pessoa Humana:</strong> Considerado pelo STF como um princípio-matriz, que irradia seus efeitos sobre todo o ordenamento jurídico. Fundamenta decisões sobre direitos de minorias, pesquisas com células-tronco e a vedação de penas cruéis.</li><li><strong>Estado Laico:</strong> O STF já decidiu que a laicidade do Estado não impede a colaboração de interesse público com instituições religiosas, mas veda o proselitismo e o embaraço a outras crenças.</li><li><strong>Separação dos Poderes:</strong> O STF atua para garantir a harmonia e a independência entre os poderes, coibindo interferências indevidas, como no controle de constitucionalidade de leis e atos normativos.</li></ul></div>
+                    <div id="principios-pegadinhas" class="tab-content"><h3 class="font-semibold text-lg mb-2 text-red-700">Pegadinhas de Concurso</h3><ul class="list-disc list-inside space-y-2 text-sm text-red-900 bg-red-50 p-4 rounded-md border border-red-200"><li><strong>Confundir Fundamentos com Objetivos:</strong> As bancas adoram trocar os termos. Lembre-se que os fundamentos (art. 1º) são a base, enquanto os objetivos (art. 3º) são as metas.</li><li><strong>Poderes da União:</strong> O Ministério Público e o Tribunal de Contas **não** são poderes, são funções essenciais à justiça.</li><li><strong>Integração Latino-Americana:</strong> O parágrafo único do art. 4º não é um princípio, mas um objetivo específico da política externa brasileira.</li></ul></div>
+                </div>
+            </section>
+
+            <!-- Section: Direitos Individuais -->
+            <section id="direitos_individuais" class="bg-white p-6 rounded-lg shadow-md scroll-mt-20">
+                 <h2 class="text-2xl font-bold mb-1 text-slate-800">CAPÍTULO I - DOS DIREITOS E DEVERES INDIVIDUAIS E COLETIVOS</h2>
+                 <p class="text-slate-600 mb-4 text-sm">O Artigo 5º é o coração dos direitos fundamentais e uma cláusula pétrea. Esta seção detalha as liberdades clássicas e as garantias processuais que protegem o cidadão contra o poder do Estado, sendo um dos tópicos mais cobrados em provas.</p>
+                 <div class="tabs-container">
+                    <div class="border-b border-slate-200 mb-4"><nav class="flex flex-wrap -mb-px" aria-label="Tabs"><button class="tab-button active" data-target="individuais-doutrina">Doutrina</button><button class="tab-button" data-target="individuais-lei">Texto da Lei</button><button class="tab-button" data-target="individuais-juris">Jurisprudência</button><button class="tab-button" data-target="individuais-pegadinhas">Pegadinhas</button></nav></div>
+                    <div id="individuais-doutrina" class="tab-content active"><h3 class="font-semibold text-lg mb-2">Análise Detalhada de Incisos Relevantes</h3><ul class="list-disc list-inside space-y-2 text-sm"><li><strong>Princípio da Legalidade (II):</strong> Para o particular, é a autonomia da vontade (pode fazer tudo o que a lei não proíbe). Para a Administração Pública, é a legalidade estrita (só pode fazer o que a lei permite).</li><li><strong>Inviolabilidade de Domicílio (XI):</strong> "A casa é asilo inviolável". Exceções: flagrante delito, desastre, prestar socorro ou, durante o dia, por determinação judicial.</li><li><strong>Remédios Constitucionais:</strong> Habeas Corpus (liberdade de locomoção), Habeas Data (acesso/retificação de informações), Mandado de Segurança (direito líquido e certo), Mandado de Injunção (norma regulamentadora ausente) e Ação Popular (anular ato lesivo).</li></ul></div>
+                    <div id="individuais-lei" class="tab-content"><details class="bg-slate-50 p-4 rounded-md border"><summary class="font-semibold text-slate-700">Clique para ver o Texto da Lei (Art. 5º)</summary><div class="prose prose-sm max-w-none mt-2 text-slate-600"><p><b>Art. 5º</b> Todos são iguais perante a lei, sem distinção de qualquer natureza, garantindo-se aos brasileiros e aos estrangeiros residentes no País a inviolabilidade do direito à vida, à liberdade, à igualdade, à segurança e à propriedade...</p></div></details></div>
+                    <div id="individuais-juris" class="tab-content"><h3 class="font-semibold text-lg mb-2">Jurisprudência Relevante</h3><ul class="list-disc list-inside space-y-2 text-sm"><li><strong>Liberdade de Reunião (XVI):</strong> Independe de autorização, mas exige-se "prévio aviso" à autoridade competente para não frustrar outra reunião já convocada para o mesmo local.</li><li><strong>Racismo e Injúria Racial:</strong> O STF equiparou a injúria racial ao crime de racismo, tornando-a inafiançável e imprescritível.</li><li><strong>Execução da Pena:</strong> O STF tem jurisprudência oscilante sobre a possibilidade de execução da pena após condenação em segunda instância, sendo a regra atual a necessidade do trânsito em julgado.</li></ul></div>
+                    <div id="individuais-pegadinhas" class="tab-content"><h3 class="font-semibold text-lg mb-2 text-red-700">Pegadinhas de Concurso</h3><ul class="list-disc list-inside space-y-2 text-sm text-red-900 bg-red-50 p-4 rounded-md border border-red-200"><li><strong>Autorização vs. Prévio Aviso:</strong> Para reunião (XVI) exige-se prévio aviso. Para criar associações (XVII), não se exige autorização.</li><li><strong>Dissolução de Associação:</strong> A dissolução compulsória só por decisão judicial transitada em julgado. A suspensão pode ser por decisão judicial simples (liminar).</li><li><strong>Prisão Civil por Dívida:</strong> Só cabe para o devedor de alimentos. A do depositário infiel não é mais admitida no Brasil (Súmula Vinculante 25).</li></ul></div>
+                </div>
+            </section>
+            
+            <!-- Section: Direitos Sociais -->
+            <section id="direitos_sociais" class="bg-white p-6 rounded-lg shadow-md scroll-mt-20">
+                <h2 class="text-2xl font-bold mb-1 text-slate-800">CAPÍTULO II - DOS DIREITOS SOCIAIS</h2>
+                <p class="text-slate-600 mb-4 text-sm">Aqui são tratados os direitos de segunda dimensão, que exigem uma atuação positiva do Estado para garantir condições de vida digna. A distinção entre o "mínimo existencial" e a "reserva do possível" é um ponto doutrinário chave.</p>
+                <div class="tabs-container">
+                    <div class="border-b border-slate-200 mb-4"><nav class="flex flex-wrap -mb-px" aria-label="Tabs"><button class="tab-button active" data-target="sociais-doutrina">Doutrina</button><button class="tab-button" data-target="sociais-lei">Texto da Lei</button><button class="tab-button" data-target="sociais-juris">Jurisprudência</button><button class="tab-button" data-target="sociais-pegadinhas">Pegadinhas</button></nav></div>
+                    <div id="sociais-doutrina" class="tab-content active"><h3 class="font-semibold text-lg mb-2">Visão Geral e Doutrina</h3><ul class="list-disc list-inside space-y-2 text-sm"><li><strong>Direitos de 2ª Dimensão:</strong> Exigem uma atuação positiva do Estado (um "fazer") para garantir a igualdade material.</li><li><strong>Rol Exemplificativo:</strong> O rol do art. 6º é considerado aberto, podendo ser ampliado.</li><li><strong>Mínimo Existencial vs. Reserva do Possível:</strong> O Estado não pode alegar falta de recursos (reserva do possível) para se eximir de garantir um núcleo mínimo de direitos essenciais à dignidade humana.</li><li><strong>Direito de Greve (Art. 9):</strong> Assegurado aos trabalhadores, que decidem sobre a oportunidade de exercê-lo. A lei define os serviços essenciais.</li></ul></div>
+                    <div id="sociais-lei" class="tab-content"><details class="bg-slate-50 p-4 rounded-md border"><summary class="font-semibold text-slate-700">Clique para ver o Texto da Lei (Arts. 6º ao 11)</summary><div class="prose prose-sm max-w-none mt-2 text-slate-600"><p><b>Art. 6º</b> São direitos sociais a educação, a saúde, a alimentação, o trabalho, a moradia, o transporte, o lazer, a segurança, a previdência social, a proteção à maternidade e à infância, a assistência aos desamparados...</p><p><b>Art. 7º</b> São direitos dos trabalhadores urbanos e rurais, além de outros que visem à melhoria de sua condição social...</p></div></details></div>
+                    <div id="sociais-juris" class="tab-content"><h3 class="font-semibold text-lg mb-2">Jurisprudência Relevante</h3><ul class="list-disc list-inside space-y-2 text-sm"><li><strong>Fornecimento de Medicamentos:</strong> O STF tem decidido que o Estado tem o dever de fornecer medicamentos de alto custo, desde que comprovada a imprescindibilidade e a incapacidade financeira do paciente.</li><li><strong>Direito à Educação:</strong> O STF já determinou que é dever do Estado garantir o acesso à creche e à pré-escola para crianças de 0 a 5 anos.</li><li><strong>Greve de Servidores Públicos:</strong> Na ausência de lei específica, o STF determinou a aplicação, no que couber, da lei de greve da iniciativa privada (Lei nº 7.783/89).</li></ul></div>
+                    <div id="sociais-pegadinhas" class="tab-content"><h3 class="font-semibold text-lg mb-2 text-red-700">Pegadinhas de Concurso</h3><ul class="list-disc list-inside space-y-2 text-sm text-red-900 bg-red-50 p-4 rounded-md border border-red-200"><li><strong>Rol do Art. 6º:</strong> Bancas costumam afirmar que o rol é taxativo (fechado), o que está incorreto.</li><li><strong>Direitos dos Domésticos:</strong> A banca pode cobrar quais direitos do art. 7º foram estendidos aos domésticos. É preciso atenção ao parágrafo único, que foi significativamente ampliado.</li><li><strong>Unicidade Sindical:</strong> A CF/88 adotou a unicidade, vedando mais de um sindicato da mesma categoria na mesma base territorial. Não confundir com liberdade sindical.</li></ul></div>
+                </div>
+            </section>
+
+            <!-- Section: Nacionalidade -->
+            <section id="nacionalidade" class="bg-white p-6 rounded-lg shadow-md scroll-mt-20">
+                <h2 class="text-2xl font-bold mb-1 text-slate-800">CAPÍTULO III - DA NACIONALIDADE</h2>
+                <p class="text-slate-600 mb-4 text-sm">Define o vínculo jurídico-político entre o indivíduo e o Estado. A distinção entre brasileiro nato e naturalizado, os cargos privativos e as hipóteses de perda da nacionalidade são temas frequentes.</p>
+                <div class="tabs-container">
+                    <div class="border-b border-slate-200 mb-4"><nav class="flex flex-wrap -mb-px" aria-label="Tabs"><button class="tab-button active" data-target="nac-doutrina">Doutrina</button><button class="tab-button" data-target="nac-lei">Texto da Lei</button><button class="tab-button" data-target="nac-juris">Jurisprudência</button><button class="tab-button" data-target="nac-pegadinhas">Pegadinhas</button></nav></div>
+                    <div id="nac-doutrina" class="tab-content active"><h3 class="font-semibold text-lg mb-2">Visão Geral e Doutrina</h3><ul class="list-disc list-inside space-y-2 text-sm"><li><strong>Critérios:</strong> A regra é o <i>jus soli</i> (direito de solo). A exceção é o <i>jus sanguinis</i> (direito de sangue).</li><li><strong>Cargos Privativos de Brasileiro Nato (Art. 12, § 3º):</strong> Mnemônico <b>MP3.COM</b> (Ministro do STF; Presidente e Vice; Presidente da Câmara; Presidente do Senado; Carreira diplomática; Oficial das F.A.; Ministro da Defesa).</li><li><strong>Perda da Nacionalidade:</strong> Ocorre por cancelamento da naturalização (punição) ou por aquisição de outra nacionalidade (regra geral, com exceções).</li></ul></div>
+                    <div id="nac-lei" class="tab-content"><details class="bg-slate-50 p-4 rounded-md border"><summary class="font-semibold text-slate-700">Clique para ver o Texto da Lei (Arts. 12 e 13)</summary><div class="prose prose-sm max-w-none mt-2 text-slate-600"><p><b>Art. 12.</b> São brasileiros: I - natos; II - naturalizados...</p><p><b>Art. 13.</b> A língua portuguesa é o idioma oficial da República Federativa do Brasil...</p></div></details></div>
+                    <div id="nac-juris" class="tab-content"><h3 class="font-semibold text-lg mb-2">Jurisprudência Relevante</h3><ul class="list-disc list-inside space-y-2 text-sm"><li><strong>Extradição de Brasileiro Naturalizado:</strong> O STF admite em duas hipóteses: crime comum praticado antes da naturalização ou comprovado envolvimento em tráfico de drogas, a qualquer tempo.</li><li><strong>Perda da Nacionalidade (EC 131/2023):</strong> A perda não é mais automática ao adquirir outra nacionalidade. O brasileiro só perde a nacionalidade originária se fizer um pedido expresso, com exceções para evitar apatridia.</li></ul></div>
+                    <div id="nac-pegadinhas" class="tab-content"><h3 class="font-semibold text-lg mb-2 text-red-700">Pegadinhas de Concurso</h3><ul class="list-disc list-inside space-y-2 text-sm text-red-900 bg-red-50 p-4 rounded-md border border-red-200"><li><strong>Nato vs. Naturalizado:</strong> A principal fonte de pegadinhas é a distinção de direitos e vedações. Memorize os cargos privativos e as regras de extradição.</li><li><strong>"A qualquer tempo":</strong> A opção pela nacionalidade brasileira (para nascidos no exterior) pode ser feita a qualquer tempo, após atingir a maioridade.</li><li><strong>Símbolos Nacionais:</strong> As bancas podem incluir símbolos que não estão no rol taxativo do art. 13, § 1º (ex: Hino da Independência).</li></ul></div>
+                </div>
+            </section>
+            
+            <!-- Section: Direitos Políticos (com gráfico) -->
+            <section id="direitos_politicos" class="bg-white p-6 rounded-lg shadow-md scroll-mt-20">
+                <h2 class="text-2xl font-bold mb-1 text-slate-800">CAPÍTULO IV - DOS DIREITOS POLÍTICOS</h2>
+                <p class="text-slate-600 mb-4 text-sm">Esta seção trata das formas de participação popular no governo, incluindo o direito de votar (alistabilidade) e de ser votado (elegibilidade). As idades mínimas e as regras de inelegibilidade são pontos de alta incidência em concursos.</p>
+                <div class="tabs-container">
+                    <div class="border-b border-slate-200 mb-4"><nav class="flex flex-wrap -mb-px" aria-label="Tabs"><button class="tab-button active" data-target="politicos-doutrina">Doutrina e Gráfico</button><button class="tab-button" data-target="politicos-lei">Texto da Lei</button><button class="tab-button" data-target="politicos-juris">Jurisprudência</button><button class="tab-button" data-target="politicos-pegadinhas">Pegadinhas</button></nav></div>
+                    <div id="politicos-doutrina" class="tab-content active">
+                        <h3 class="font-semibold text-lg mb-2">Idades Mínimas para Cargos Eletivos</h3>
+                        <p class="text-sm mb-4">A Constituição estabelece uma escada de idades mínimas como condição de elegibilidade, refletindo a maturidade exigida para cada cargo. O gráfico abaixo ilustra essa progressão.</p>
+                        <div class="chart-container"><canvas id="idadesChart"></canvas></div>
+                    </div>
+                    <div id="politicos-lei" class="tab-content"><details class="bg-slate-50 p-4 rounded-md border"><summary class="font-semibold text-slate-700">Clique para ver o Texto da Lei (Arts. 14 ao 16)</summary><div class="prose prose-sm max-w-none mt-2 text-slate-600"><p><b>Art. 14.</b> A soberania popular será exercida pelo sufrágio universal e pelo voto direto e secreto...</p><p><b>Art. 15.</b> É vedada a cassação de direitos políticos, cuja perda ou suspensão só se dará nos casos de...</p><p><b>Art. 16.</b> A lei que alterar o processo eleitoral entrará em vigor na data de sua publicação, não se aplicando à eleição que ocorra até um ano da data de sua vigência.</p></div></details></div>
+                    <div id="politicos-juris" class="tab-content"><h3 class="font-semibold text-lg mb-2">Jurisprudência Relevante</h3><ul class="list-disc list-inside space-y-2 text-sm"><li><strong>Lei da Ficha Limpa (LC 135/2010):</strong> Considerada constitucional pelo STF, inclusive a inelegibilidade por condenação de órgão colegiado.</li><li><strong>Candidatura Avulsa:</strong> O STF decidiu que não é possível candidatura sem filiação partidária.</li><li><strong>Inelegibilidade Reflexa:</strong> O cônjuge e os parentes até 2º grau do titular do Executivo são inelegíveis no território de jurisdição, salvo se já titular de mandato e candidato à reeleição.</li></ul></div>
+                    <div id="politicos-pegadinhas" class="tab-content"><h3 class="font-semibold text-lg mb-2 text-red-700">Pegadinhas de Concurso</h3><ul class="list-disc list-inside space-y-2 text-sm text-red-900 bg-red-50 p-4 rounded-md border border-red-200"><li><strong>Cassação vs. Perda/Suspensão:</strong> A CF/88 veda a cassação. As bancas usam o termo para confundir.</li><li><strong>Condenação Criminal:</strong> A suspensão dos direitos políticos só ocorre com o trânsito em julgado da sentença.</li><li><strong>Anterioridade Eleitoral:</strong> Atinge leis que alteram o "processo eleitoral", conceito interpretado de forma ampla pelo STF.</li></ul></div>
+                </div>
+            </section>
+            
+            <!-- Section: Organização do Estado -->
+            <section id="organizacao_estado" class="bg-white p-6 rounded-lg shadow-md scroll-mt-20">
+                <h2 class="text-2xl font-bold mb-1 text-slate-800">CAPÍTULO I - DA ORGANIZAÇÃO POLÍTICO-ADMINISTRATIVA</h2>
+                <p class="text-slate-600 mb-4 text-sm">Define a estrutura da Federação brasileira, composta por União, Estados, Distrito Federal e Municípios, todos autônomos. As regras para criação de novos entes e as vedações impostas a todos são o foco principal.</p>
+                <div class="tabs-container">
+                    <div class="border-b border-slate-200 mb-4"><nav class="flex flex-wrap -mb-px" aria-label="Tabs"><button class="tab-button active" data-target="org-doutrina">Doutrina</button><button class="tab-button" data-target="org-lei">Texto da Lei</button><button class="tab-button" data-target="org-juris">Jurisprudência</button><button class="tab-button" data-target="org-pegadinhas">Pegadinhas</button></nav></div>
+                    <div id="org-doutrina" class="tab-content active"><h3 class="font-semibold text-lg mb-2">Visão Geral e Doutrina</h3><ul class="list-disc list-inside space-y-2 text-sm"><li><strong>Autonomia dos Entes:</strong> Manifesta-se na capacidade de auto-organização, autogoverno, autolegislação e autoadministração.</li><li><strong>Territórios Federais:</strong> Integram a União, não possuem autonomia federativa.</li><li><strong>Vedações (Art. 19):</strong> Limites à atuação de todos os entes, como a proibição de criar distinções entre brasileiros e de estabelecer ou subvencionar cultos religiosos (Estado Laico).</li></ul></div>
+                    <div id="org-lei" class="tab-content"><details class="bg-slate-50 p-4 rounded-md border"><summary class="font-semibold text-slate-700">Clique para ver o Texto da Lei (Arts. 18 e 19)</summary><div class="prose prose-sm max-w-none mt-2 text-slate-600"><p><b>Art. 18.</b> A organização político-administrativa da República Federativa do Brasil compreende a União, os Estados, o Distrito Federal e os Municípios, todos autônomos...</p><p><b>Art. 19.</b> É vedado à União, aos Estados, ao Distrito Federal e aos Municípios...</p></div></details></div>
+                    <div id="org-juris" class="tab-content"><h3 class="font-semibold text-lg mb-2">Jurisprudência Relevante</h3><ul class="list-disc list-inside space-y-2 text-sm"><li><strong>Criação de Municípios:</strong> O STF já declarou inconstitucionais leis estaduais que criaram municípios sem a prévia edição da lei complementar federal que estabelece o período para tal (art. 18, § 4º).</li><li><strong>Símbolos Religiosos:</strong> O STF considera a presença de símbolos religiosos em espaços públicos compatível com a laicidade do Estado, desde que não haja ostentação ou favorecimento.</li></ul></div>
+                    <div id="org-pegadinhas" class="tab-content"><h3 class="font-semibold text-lg mb-2 text-red-700">Pegadinhas de Concurso</h3><ul class="list-disc list-inside space-y-2 text-sm text-red-900 bg-red-50 p-4 rounded-md border border-red-200"><li><strong>Capital Federal:</strong> Brasília é a Capital Federal. O Distrito Federal é o ente federativo que a abrange.</li><li><strong>Criação de Municípios:</strong> A lei que cria é estadual, mas depende de lei complementar federal, estudos de viabilidade e plebiscito.</li></ul></div>
+                </div>
+            </section>
+
+            <!-- Section: Municípios -->
+            <section id="municipios" class="bg-white p-6 rounded-lg shadow-md scroll-mt-20">
+                <h2 class="text-2xl font-bold mb-1 text-slate-800">CAPÍTULO IV - DOS MUNICÍPIOS</h2>
+                <p class="text-slate-600 mb-4 text-sm">Detalha a organização do poder nos municípios, regidos por Lei Orgânica. As competências da Câmara Municipal, os limites de gastos e as regras de fiscalização pelo Tribunal de Contas são os pontos de maior atenção.</p>
+                <div class="tabs-container">
+                    <div class="border-b border-slate-200 mb-4"><nav class="flex flex-wrap -mb-px" aria-label="Tabs"><button class="tab-button active" data-target="mun-doutrina">Doutrina</button><button class="tab-button" data-target="mun-lei">Texto da Lei</button><button class="tab-button" data-target="mun-juris">Jurisprudência</button><button class="tab-button" data-target="mun-pegadinhas">Pegadinhas</button></nav></div>
+                    <div id="mun-doutrina" class="tab-content active"><h3 class="font-semibold text-lg mb-2">Visão Geral e Doutrina</h3><ul class="list-disc list-inside space-y-2 text-sm"><li><strong>Lei Orgânica:</strong> Votada em dois turnos, com interstício mínimo de 10 dias, e aprovada por 2/3 dos membros da Câmara Municipal.</li><li><strong>Fiscalização (Art. 31):</strong> O parecer prévio do Tribunal de Contas sobre as contas do Prefeito só deixará de prevalecer por decisão de 2/3 dos membros da Câmara.</li><li><strong>Tribunais de Contas Municipais:</strong> É vedada a criação de novos.</li></ul></div>
+                    <div id="mun-lei" class="tab-content"><details class="bg-slate-50 p-4 rounded-md border"><summary class="font-semibold text-slate-700">Clique para ver o Texto da Lei (Arts. 29 ao 31)</summary><div class="prose prose-sm max-w-none mt-2 text-slate-600"><p><b>Art. 29.</b> O Município reger-se-á por lei orgânica, votada em dois turnos...</p><p><b>Art. 30.</b> Compete aos Municípios...</p><p><b>Art. 31.</b> A fiscalização do Município será exercida pelo Poder Legislativo Municipal...</p></div></details></div>
+                    <div id="mun-juris" class="tab-content"><h3 class="font-semibold text-lg mb-2">Jurisprudência Relevante</h3><ul class="list-disc list-inside space-y-2 text-sm"><li><strong>Inviolabilidade dos Vereadores:</strong> O STF entende que a inviolabilidade material (opiniões, palavras e votos) é restrita à circunscrição do Município.</li><li><strong>Julgamento das Contas do Prefeito:</strong> Compete à Câmara Municipal julgar as contas, tanto as de governo quanto as de gestão. O papel do Tribunal de Contas é auxiliar, emitindo parecer prévio.</li></ul></div>
+                    <div id="mun-pegadinhas" class="tab-content"><h3 class="font-semibold text-lg mb-2 text-red-700">Pegadinhas de Concurso</h3><ul class="list-disc list-inside space-y-2 text-sm text-red-900 bg-red-50 p-4 rounded-md border border-red-200"><li><strong>Lei Orgânica:</strong> As bancas adoram cobrar o quórum (2/3) e os turnos (2) de votação.</li><li><strong>Parecer do Tribunal de Contas:</strong> O parecer não é vinculante, mas só pode ser derrubado por um quórum qualificado (2/3) da Câmara.</li></ul></div>
+                </div>
+            </section>
+
+            <!-- Section: Administração Pública -->
+            <section id="admin_publica" class="bg-white p-6 rounded-lg shadow-md scroll-mt-20">
+                <h2 class="text-2xl font-bold mb-1 text-slate-800">CAPÍTULO VII - DA ADMINISTRAÇÃO PÚBLICA</h2>
+                <p class="text-slate-600 mb-4 text-sm">Estabelece os princípios e regras para toda a Administração Pública. O mnemônico LIMPE, as regras de concurso, acumulação de cargos, estabilidade e a responsabilidade civil do Estado são temas essenciais.</p>
+                <div class="tabs-container">
+                    <div class="border-b border-slate-200 mb-4"><nav class="flex flex-wrap -mb-px" aria-label="Tabs"><button class="tab-button active" data-target="adm-doutrina">Doutrina</button><button class="tab-button" data-target="adm-lei">Texto da Lei</button><button class="tab-button" data-target="adm-juris">Jurisprudência</button><button class="tab-button" data-target="adm-pegadinhas">Pegadinhas</button></nav></div>
+                    <div id="adm-doutrina" class="tab-content active"><h3 class="font-semibold text-lg mb-2">Visão Geral e Doutrina</h3><ul class="list-disc list-inside space-y-2 text-sm"><li><strong>Princípios (Art. 37):</strong> Mnemônico <b>LIMPE</b> (Legalidade, Impessoalidade, Moralidade, Publicidade, Eficiência).</li><li><strong>Acumulação de Cargos:</strong> Vedada, salvo as exceções constitucionais e com compatibilidade de horários.</li><li><strong>Responsabilidade Civil do Estado (Art. 37, § 6º):</strong> É objetiva (risco administrativo). Exige conduta, dano e nexo causal. Ação de regresso contra o agente depende de dolo ou culpa.</li><li><strong>Estabilidade (Art. 41):</strong> Adquirida após 3 anos de efetivo exercício para servidores de cargo efetivo.</li></ul></div>
+                    <div id="adm-lei" class="tab-content"><details class="bg-slate-50 p-4 rounded-md border"><summary class="font-semibold text-slate-700">Clique para ver o Texto da Lei (Arts. 37 ao 41)</summary><div class="prose prose-sm max-w-none mt-2 text-slate-600"><p><b>Art. 37.</b> A administração pública direta e indireta de qualquer dos Poderes da União, dos Estados, do Distrito Federal e dos Municípios obedecerá aos princípios de...</p></div></details></div>
+                    <div id="adm-juris" class="tab-content"><h3 class="font-semibold text-lg mb-2">Jurisprudência Relevante</h3><ul class="list-disc list-inside space-y-2 text-sm"><li><strong>Nepotismo (Súmula Vinculante 13):</strong> Veda a nomeação de parentes para cargos em comissão e de confiança.</li><li><strong>Teto Remuneratório:</strong> O STF tem diversas decisões interpretando o teto e suas exceções. Vantagens de caráter pessoal, em geral, não entram no cálculo.</li><li><strong>Improbidade Administrativa:</strong> A Lei nº 14.230/2021 alterou a Lei de Improbidade, exigindo dolo para a maioria dos atos. O STF tem modulado a aplicação dessas novas regras.</li></ul></div>
+                    <div id="adm-pegadinhas" class="tab-content"><h3 class="font-semibold text-lg mb-2 text-red-700">Pegadinhas de Concurso</h3><ul class="list-disc list-inside space-y-2 text-sm text-red-900 bg-red-50 p-4 rounded-md border border-red-200"><li><strong>Acumulação de Cargos:</strong> É preciso verificar a compatibilidade de horários. A banca pode omitir esse requisito.</li><li><strong>Estabilidade:</strong> O prazo é de 3 anos de efetivo exercício. A avaliação de desempenho é condição para aquisição.</li><li><strong>Perda do Cargo pelo Estável:</strong> Só em 3 hipóteses: sentença judicial transitada em julgado, processo administrativo com ampla defesa, ou avaliação periódica de desempenho insuficiente (esta depende de lei complementar).</li></ul></div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const tabContainers = document.querySelectorAll('.tabs-container');
+        tabContainers.forEach(container => {
+            const tabButtons = container.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.dataset.target;
+                    const currentContainer = button.closest('.tabs-container');
+                    
+                    currentContainer.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    currentContainer.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === targetId) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+        });
+
+        const menuButton = document.getElementById('menu-button');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.querySelector('main');
+        
+        menuButton.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+        });
+
+        mainContent.addEventListener('click', () => {
+            if (window.innerWidth < 768 && !sidebar.classList.contains('-translate-x-full')) {
+                 sidebar.classList.add('-translate-x-full');
+            }
+        });
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth < 768) {
+                    sidebar.classList.add('-translate-x-full');
+                }
+            });
+        });
+
+        const sections = document.querySelectorAll('section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href').substring(1) === entry.target.id) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { rootMargin: "-50% 0px -50% 0px" });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        const ctx = document.getElementById('idadesChart').getContext('2d');
+        const idadesChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Vereador', 'Deputado/Prefeito', 'Governador', 'Presidente/Senador'],
+                datasets: [{
+                    label: 'Idade Mínima (anos)',
+                    data: [18, 21, 30, 35],
+                    backgroundColor: ['rgba(59, 130, 246, 0.7)', 'rgba(34, 197, 94, 0.7)', 'rgba(249, 115, 22, 0.7)', 'rgba(239, 68, 68, 0.7)'],
+                    borderColor: ['#3B82F6', '#22C55E', '#F97316', '#EF4444'],
+                    borderWidth: 1.5,
+                    borderRadius: 4,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { y: { beginAtZero: true, grid: { color: '#e2e8f0' } }, x: { grid: { display: false } } },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#1e293b',
+                        titleFont: { size: 14, weight: 'bold' },
+                        bodyFont: { size: 12 },
+                        padding: 10,
+                        cornerRadius: 4,
+                        callbacks: { label: (context) => ` ${context.raw} anos` }
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

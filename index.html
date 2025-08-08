@@ -123,7 +123,7 @@
                 <div class="tabs-container">
                     <div class="border-b border-slate-200 mb-4"><nav class="flex flex-wrap -mb-px text-sm font-medium" aria-label="Tabs"><button class="tab-button active" data-target="principios-doutrina">Doutrina</button><button class="tab-button" data-target="principios-avancado">Tópicos Avançados</button><button class="tab-button" data-target="principios-lei">Texto da Lei</button><button class="tab-button" data-target="principios-juris">Jurisprudência</button><button class="tab-button" data-target="principios-pegadinhas">Pegadinhas</button></nav></div>
                     <div id="principios-doutrina" class="tab-content active">
-                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="grid md:grid-cols-2 gap-4">
                             <div class="bg-slate-50 p-4 rounded-lg border">
                                 <h4 class="font-semibold mb-2">Estrutura do Estado</h4>
                                 <p class="text-xs"><strong>Forma de Estado:</strong> Federação</p>
@@ -141,7 +141,16 @@
                                     <li><span class="font-bold">PLU</span>ralismo político</li>
                                 </ul>
                             </div>
-                            <div class="pie-chart-container lg:col-span-1">
+                             <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                                <h4 class="font-semibold text-green-800 mb-2">Objetivos: CON-GA-ER-PRO</h4>
+                                <ul class="list-none text-xs space-y-1">
+                                    <li><span class="font-bold">CON</span>struir uma sociedade livre, justa e solidária</li>
+                                    <li><span class="font-bold">GA</span>rantir o desenvolvimento nacional</li>
+                                    <li><span class="font-bold">ER</span>radicar a pobreza e a marginalização</li>
+                                    <li><span class="font-bold">PRO</span>mover o bem de todos</li>
+                                </ul>
+                            </div>
+                            <div class="pie-chart-container">
                                 <canvas id="poderesChart"></canvas>
                             </div>
                         </div>
@@ -173,11 +182,28 @@
                 <p class="text-slate-500 mb-6 text-sm">Direitos de segunda dimensão, que exigem uma atuação positiva do Estado para garantir condições de vida digna. A distinção entre "mínimo existencial" e "reserva do possível" é um ponto doutrinário chave.</p>
                  <div class="tabs-container">
                     <div class="border-b border-slate-200 mb-4"><nav class="flex flex-wrap -mb-px text-sm font-medium" aria-label="Tabs"><button class="tab-button active" data-target="sociais-doutrina">Doutrina</button><button class="tab-button" data-target="sociais-avancado">Tópicos Avançados</button><button class="tab-button" data-target="sociais-lei">Texto da Lei</button><button class="tab-button" data-target="sociais-juris">Jurisprudência</button><button class="tab-button" data-target="sociais-pegadinhas">Pegadinhas</button></nav></div>
-                    <div id="sociais-doutrina" class="tab-content active"><h3 class="font-semibold text-lg mb-2">Visão Geral e Doutrina</h3><ul class="list-disc list-inside space-y-2 text-sm"><li><strong>Direitos de 2ª Dimensão:</strong> Exigem uma atuação positiva do Estado para garantir a igualdade material.</li><li><strong>Rol Exemplificativo:</strong> O rol do art. 6º é considerado aberto.</li><li><strong>Direito de Greve (Art. 9):</strong> Assegurado aos trabalhadores, que decidem sobre a oportunidade de exercê-lo.</li></ul></div>
+                    <div id="sociais-doutrina" class="tab-content active">
+                        <h3 class="font-semibold text-lg mb-2">Quais são os Direitos Sociais? (Art. 6º)</h3>
+                        <p class="text-sm mb-2">O Art. 6º da Constituição estabelece um rol de direitos essenciais para uma vida digna, que são:</p>
+                        <ul class="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm">
+                            <li class="bg-slate-50 p-2 rounded-md border text-center">Educação</li>
+                            <li class="bg-slate-50 p-2 rounded-md border text-center">Saúde</li>
+                            <li class="bg-slate-50 p-2 rounded-md border text-center">Alimentação</li>
+                            <li class="bg-slate-50 p-2 rounded-md border text-center">Trabalho</li>
+                            <li class="bg-slate-50 p-2 rounded-md border text-center">Moradia</li>
+                            <li class="bg-slate-50 p-2 rounded-md border text-center">Transporte</li>
+                            <li class="bg-slate-50 p-2 rounded-md border text-center">Lazer</li>
+                            <li class="bg-slate-50 p-2 rounded-md border text-center">Segurança</li>
+                            <li class="bg-slate-50 p-2 rounded-md border text-center">Previdência Social</li>
+                            <li class="bg-slate-50 p-2 rounded-md border text-center">Proteção à maternidade e à infância</li>
+                            <li class="bg-slate-50 p-2 rounded-md border text-center">Assistência aos desamparados</li>
+                        </ul>
+                        <p class="text-xs text-slate-500 mt-2">Além destes, o Art. 7º detalha diversos direitos específicos dos trabalhadores urbanos e rurais.</p>
+                    </div>
                     <div id="sociais-avancado" class="tab-content"><h3 class="font-semibold text-lg mb-2">Tópicos Avançados</h3><ul class="list-disc list-inside space-y-2 text-sm"><li><strong>Proibição do Retrocesso Social:</strong> Uma vez concretizado um direito social por lei, esta não pode ser suprimida sem a criação de medida compensatória.</li><li><strong>Judicialização de Políticas Públicas:</strong> O Judiciário pode determinar a implementação de políticas públicas para assegurar direitos sociais, com cautela para não violar a separação de poderes.</li></ul></div>
                     <div id="sociais-lei" class="tab-content"><details class="bg-slate-50 p-4 rounded-lg border"><summary class="font-semibold text-slate-700">Clique para ver o Texto da Lei (Arts. 6º ao 11)</summary><div class="prose prose-sm max-w-none mt-2 text-slate-600"><p><b>Art. 6º</b> São direitos sociais a educação, a saúde, a alimentação, o trabalho, a moradia, o transporte...</p></div></details></div>
                     <div id="sociais-juris" class="tab-content"><h3 class="font-semibold text-lg mb-2">Jurisprudência Relevante</h3><ul class="list-disc list-inside space-y-2 text-sm"><li><strong>Fornecimento de Medicamentos:</strong> O Estado tem o dever de fornecer medicamentos de alto custo, desde que comprovada a imprescindibilidade.</li><li><strong>Direito à Educação:</strong> É dever do Estado garantir o acesso à creche e à pré-escola.</li></ul></div>
-                    <div id="sociais-pegadinhas" class="tab-content"><h3 class="font-semibold text-lg mb-2 text-red-700">Pegadinhas de Concurso</h3><ul class="list-disc list-inside space-y-2 text-sm text-red-900 bg-red-50 p-4 rounded-lg border border-red-200"><li><strong>Rol do Art. 6º:</strong> Bancas afirmam que o rol é taxativo (fechado), o que está incorreto.</li><li><strong>Unicidade Sindical:</strong> A CF/88 veda mais de um sindicato da mesma categoria na mesma base territorial.</li></ul></div>
+                    <div id="sociais-pegadinhas" class="tab-content"><h3 class="font-semibold text-lg mb-2 text-red-700">Pegadinhas de Concurso</h3><ul class="list-disc list-inside space-y-2 text-sm text-red-900 bg-red-50 p-4 rounded-lg border border-red-200"><li><strong>Rol do Art. 6º:</strong> Bancas afirmam que o rol é taxativo (fechado), o que está incorreto. É exemplificativo.</li><li><strong>Unicidade Sindical:</strong> A CF/88 veda mais de um sindicato da mesma categoria na mesma base territorial.</li></ul></div>
                 </div>
             </section>
 
@@ -202,9 +228,23 @@
                 <div class="tabs-container">
                     <div class="border-b border-slate-200 mb-4"><nav class="flex flex-wrap -mb-px text-sm font-medium" aria-label="Tabs"><button class="tab-button active" data-target="politicos-doutrina">Doutrina e Gráfico</button><button class="tab-button" data-target="politicos-avancado">Tópicos Avançados</button><button class="tab-button" data-target="politicos-lei">Texto da Lei</button><button class="tab-button" data-target="politicos-juris">Jurisprudência</button><button class="tab-button" data-target="politicos-pegadinhas">Pegadinhas</button></nav></div>
                     <div id="politicos-doutrina" class="tab-content active">
-                        <h3 class="font-semibold text-lg mb-2">Idades Mínimas para Cargos Eletivos</h3>
-                        <p class="text-sm mb-4">A Constituição estabelece uma escada de idades mínimas como condição de elegibilidade, refletindo a maturidade exigida para cada cargo.</p>
-                        <div class="chart-container"><canvas id="idadesChart"></canvas></div>
+                        <div class="grid lg:grid-cols-2 gap-6">
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2">Como a Soberania Popular é Exercida?</h3>
+                                <ul class="list-disc list-inside space-y-2 text-sm">
+                                    <li><b>Sufrágio Universal:</b> Direito de votar e ser votado.</li>
+                                    <li><b>Voto Direto e Secreto:</b> O exercício do sufrágio.</li>
+                                    <li><b>Instrumentos de Democracia Direta:</b>
+                                        <ul class="list-['✔'] list-inside ml-4 mt-1 space-y-1">
+                                            <li><b>Plebiscito:</b> Consulta prévia ao povo.</li>
+                                            <li><b>Referendo:</b> Consulta posterior (ratificação) ao povo.</li>
+                                            <li><b>Iniciativa Popular:</b> Apresentação de projeto de lei pela população.</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="chart-container"><canvas id="idadesChart"></canvas></div>
+                        </div>
                     </div>
                     <div id="politicos-avancado" class="tab-content"><h3 class="font-semibold text-lg mb-2">Tópicos Avançados</h3><ul class="list-disc list-inside space-y-2 text-sm"><li><strong>Inelegibilidade Reflexa e seus Limites:</strong> Análise aprofundada do art. 14, § 7º, incluindo a Súmula Vinculante nº 18 (dissolução da sociedade conjugal no curso do mandato).</li><li><strong>Princípio da Anterioridade Eleitoral (Art. 16):</strong> Discussão sobre sua natureza de cláusula pétrea e o alcance da expressão "processo eleitoral".</li><li><strong>Abuso de Poder Político e Econômico:</strong> Consequências e a Ação de Investigação Judicial Eleitoral (AIJE).</li></ul></div>
                     <div id="politicos-lei" class="tab-content"><details class="bg-slate-50 p-4 rounded-lg border"><summary class="font-semibold text-slate-700">Clique para ver o Texto da Lei (Arts. 14 ao 16)</summary><div class="prose prose-sm max-w-none mt-2 text-slate-600"><p><b>Art. 14.</b> A soberania popular será exercida pelo sufrágio universal e pelo voto direto e secreto...</p></div></details></div>
